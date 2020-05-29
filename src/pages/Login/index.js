@@ -1,4 +1,6 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, {
+  Fragment, useState, useEffect, useCallback,
+} from 'react';
 import { Grid, Button } from '@material-ui/core';
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -16,57 +18,54 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-class Login extends PureComponent {
-  state = {
+function Login() {
+  const [userInfo, setUserInfo] = useState({
     isUserLoggedIn: false,
     user: null,
-  }
+  });
+  const { isUserLoggedIn, user } = userInfo;
 
-  componentDidMount() {
-    firebase.auth().onAuthStateChanged((user) => {
-      this.setState({ user, isUserLoggedIn: !!user });
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((userData) => {
+      setUserInfo({ user: userData, isUserLoggedIn: !!userData });
     });
-  }
+  }, []);
 
-  login = () => {
+  const login = useCallback(() => {
     const provider = new firebase.auth.GithubAuthProvider();
     firebase.auth().signInWithRedirect(provider);
-  }
+  }, []);
 
-  logout = () => {
+  const logout = useCallback(() => {
     firebase.auth().signOut().then(() => {
-      this.setState({ user: null, isUserLoggedIn: false });
+      setUserInfo({ user: null, isUserLoggedIn: false });
     });
-  }
+  }, []);
 
-  render() {
-    const { isUserLoggedIn, user } = this.state;
+  return (
+    <Container>
+      <Grid container justify="center" spacing={10}>
+        <Grid item>
+          <MainLogo />
+        </Grid>
 
-    return (
-      <Container>
-        <Grid container justify="center" spacing={10}>
-          <Grid item>
-            <MainLogo />
-          </Grid>
+        <Grid item xs={12} container justify="center">
+          {isUserLoggedIn && (
+            <Fragment>
+              <pre>{user.displayName}</pre>
+              <Button variant="contained" onClick={logout}>Sair</Button>
+            </Fragment>
+          )}
 
-          <Grid item xs={12} container justify="center">
-            {isUserLoggedIn && (
-              <Fragment>
-                <pre>{user.displayName}</pre>
-                <Button variant="contained" onClick={this.logout}>Sair</Button>
-              </Fragment>
-            )}
-
-            {!isUserLoggedIn && (
-            <GitHubButton onClick={this.login}>
+          {!isUserLoggedIn && (
+            <GitHubButton onClick={login}>
               Entrar com GitHub
             </GitHubButton>
-            )}
-          </Grid>
+          )}
         </Grid>
-      </Container>
-    );
-  }
+      </Grid>
+    </Container>
+  );
 }
 
 export default Login;
