@@ -1,33 +1,10 @@
-import React, {
-  Fragment, useState, useEffect, useCallback,
-} from 'react';
-import { Grid, Button } from '@material-ui/core';
-import firebase from 'services/firebase';
+import React, { useContext } from 'react';
+import { Grid } from '@material-ui/core';
+import { AuthContext } from 'contexts/Auth';
 import { Container, MainLogo, GitHubButton } from './style';
 
 function Login() {
-  const [userInfo, setUserInfo] = useState({
-    isUserLoggedIn: false,
-    user: null,
-  });
-  const { isUserLoggedIn, user } = userInfo;
-
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged((userData) => {
-      setUserInfo({ user: userData, isUserLoggedIn: !!userData });
-    });
-  }, []);
-
-  const login = useCallback(() => {
-    const provider = new firebase.auth.GithubAuthProvider();
-    firebase.auth().signInWithRedirect(provider);
-  }, []);
-
-  const logout = useCallback(() => {
-    firebase.auth().signOut().then(() => {
-      setUserInfo({ user: null, isUserLoggedIn: false });
-    });
-  }, []);
+  const { login } = useContext(AuthContext);
 
   return (
     <Container>
@@ -37,18 +14,9 @@ function Login() {
         </Grid>
 
         <Grid item xs={12} container justify="center">
-          {isUserLoggedIn && (
-            <Fragment>
-              <pre>{user.displayName}</pre>
-              <Button variant="contained" onClick={logout}>Sair</Button>
-            </Fragment>
-          )}
-
-          {!isUserLoggedIn && (
-            <GitHubButton onClick={login}>
-              Entrar com GitHub
-            </GitHubButton>
-          )}
+          <GitHubButton onClick={login}>
+            Entrar com GitHub
+          </GitHubButton>
         </Grid>
       </Grid>
     </Container>

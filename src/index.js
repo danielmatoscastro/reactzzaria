@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ErrorBoundary from './ErrorBoundary';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import Root from 'Root';
+import ErrorBoundary from 'ErrorBoundary';
+import * as serviceWorker from 'serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
     <ErrorBoundary>
-      <App />
+      <Root />
     </ErrorBoundary>
   </React.StrictMode>,
   document.getElementById('root'),
