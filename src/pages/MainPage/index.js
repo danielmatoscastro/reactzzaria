@@ -1,44 +1,24 @@
-import React, { useState, useContext } from 'react';
-import {
-  AppBar, IconButton, Typography, Menu, MenuItem,
-} from '@material-ui/core';
-import { AccountCircle } from '@material-ui/icons';
-import { AuthContext } from 'contexts/Auth';
-import { StyledToolbar, LogoContainer, StyledMainLogo } from './style';
+import React, { lazy, Fragment, Suspense } from 'react';
+import { Switch, Route } from 'react-router-dom';
+import { LinearProgress } from '@material-ui/core';
+import Header from './components/Header';
+import { Main } from './style';
+
+const ChoosePizzaSize = lazy(() => import('./ChoosePizzaSize'));
 
 function MainPage() {
-  const [anchorElement, setAnchorElement] = useState(null);
-  const { userInfo, logout } = useContext(AuthContext);
-
-  const handleOpenMenu = (e) => setAnchorElement(e.target);
-  const handleClose = () => setAnchorElement(null);
-
   return (
-    <AppBar>
-      <StyledToolbar>
-        <LogoContainer>
-          <StyledMainLogo />
-        </LogoContainer>
+    <Fragment>
+      <Header />
 
-        <Typography color="inherit">
-          Olá
-          {' '}
-          {userInfo.user.displayName.split(' ')[0]}
-          {' '}
-          =)
-        </Typography>
-        <IconButton color="inherit" onClick={handleOpenMenu}>
-          <AccountCircle />
-        </IconButton>
-        <Menu
-          open={!!anchorElement}
-          onClose={handleClose}
-          anchorEl={anchorElement}
-        >
-          <MenuItem onClick={logout}>Sair</MenuItem>
-        </Menu>
-      </StyledToolbar>
-    </AppBar>
+      <Main>
+        <Suspense fallback={<LinearProgress />}>
+          <Switch>
+            <Route path="/" exact component={ChoosePizzaSize} />
+          </Switch>
+        </Suspense>
+      </Main>
+    </Fragment>
   );
 }
 export default MainPage;

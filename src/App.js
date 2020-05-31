@@ -17,7 +17,13 @@ function App({ location }) {
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((userData) => {
-      setUserInfo({ user: userData, isUserLoggedIn: !!userData });
+      setUserInfo({
+        user: {
+          ...userData,
+          firstName: userData?.displayName.split(' ')[0] ?? 'Cliente',
+        },
+        isUserLoggedIn: !!userData,
+      });
       setDidCheckLogin(true);
     });
   }, [setUserInfo, setDidCheckLogin]);
