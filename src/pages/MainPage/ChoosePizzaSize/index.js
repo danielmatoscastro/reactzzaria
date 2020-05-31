@@ -1,14 +1,15 @@
 import React, { Fragment, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { AuthContext } from 'contexts/Auth';
-import { Typography, Grid } from '@material-ui/core';
+import { Typography, Grid, Card } from '@material-ui/core';
 import pizzasSizes from 'fakes/pizzasSizes';
 import {
   Title,
   PizzasGrid,
   StyledDivider,
-  StyledPaper,
   Pizza,
   PizzaText,
+  StyledCardActionArea,
 } from './style';
 
 const singularOrPlural = (amount, singular, plural) => (amount === 1 ? singular : plural);
@@ -31,18 +32,20 @@ function ChoosePizzaSize() {
       <PizzasGrid>
         {pizzasSizes.map((pizza) => (
           <Grid item key={pizza.id} xs>
-            <StyledPaper>
-              <Pizza>
-                <PizzaText>{`${pizza.size}cm`}</PizzaText>
-              </Pizza>
+            <Card>
+              <StyledCardActionArea component={Link} to="/choose-pizza-flavours">
+                <Pizza>
+                  <PizzaText>{`${pizza.size}cm`}</PizzaText>
+                </Pizza>
 
-              <StyledDivider />
+                <StyledDivider />
 
-              <Typography variant="h5">{pizza.name}</Typography>
-              <Typography>
-                {`${pizza.slices} fatias, ${pizza.flavours} ${singularOrPlural(pizza.flavours, 'sabor', 'sabores')}`}
-              </Typography>
-            </StyledPaper>
+                <Typography variant="h5">{pizza.name}</Typography>
+                <Typography>
+                  {`${pizza.slices} fatias, ${pizza.flavours} ${singularOrPlural(pizza.flavours, 'sabor', 'sabores')}`}
+                </Typography>
+              </StyledCardActionArea>
+            </Card>
           </Grid>
         ))}
       </PizzasGrid>

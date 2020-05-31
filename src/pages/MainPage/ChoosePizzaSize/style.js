@@ -2,8 +2,8 @@ import styled from 'styled-components/macro';
 import {
   Grid,
   Divider,
-  Paper,
   Typography,
+  CardActionArea,
 } from '@material-ui/core';
 
 export const Title = styled(Typography).attrs({
@@ -23,7 +23,7 @@ export const StyledDivider = styled(Divider)`
   width: 100%;
 `;
 
-export const StyledPaper = styled(Paper)`
+export const StyledCardActionArea = styled(CardActionArea)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,6 +40,8 @@ export const Pizza = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
+  background-color: #fff;
+  z-index: 1;
 
   &::before, &::after {
     content: '';
