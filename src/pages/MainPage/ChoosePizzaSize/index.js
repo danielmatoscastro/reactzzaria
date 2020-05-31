@@ -33,7 +33,7 @@ function ChoosePizzaSize() {
         {pizzasSizes.map((pizza) => (
           <Grid item key={pizza.id} xs>
             <Card>
-              <StyledCardActionArea component={Link} to="/choose-pizza-flavours">
+              <StyledCardActionArea component={Link} to={{ pathname: '/choose-pizza-flavours', state: pizza }}>
                 <Pizza>
                   <PizzaText>{`${pizza.size}cm`}</PizzaText>
                 </Pizza>
