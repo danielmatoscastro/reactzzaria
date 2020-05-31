@@ -1,6 +1,7 @@
 import React, { lazy, Fragment, Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { LinearProgress } from '@material-ui/core';
+import { HOME, CHOOSE_PIZZA_FLAVOURS } from 'routes';
 import Header from './components/Header';
 import { Main } from './style';
 
@@ -15,8 +16,8 @@ function MainPage() {
       <Main>
         <Suspense fallback={<LinearProgress />}>
           <Switch>
-            <Route path="/" exact component={ChoosePizzaSize} />
-            <Route path="/choose-pizza-flavours" component={ChoosePizzaFlavours} />
+            <Route path={HOME} exact component={ChoosePizzaSize} />
+            <Route path={CHOOSE_PIZZA_FLAVOURS} component={ChoosePizzaFlavours} />
           </Switch>
         </Suspense>
       </Main>

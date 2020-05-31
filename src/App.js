@@ -6,6 +6,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { LinearProgress } from '@material-ui/core';
 import firebase from 'services/firebase';
 import { AuthContext } from 'contexts/Auth';
+import { HOME, LOGIN } from 'routes';
 
 const MainPage = lazy(() => import('pages/MainPage'));
 const Login = lazy(() => import('pages/Login'));
@@ -32,19 +33,19 @@ function App({ location }) {
     return <LinearProgress />;
   }
 
-  if (isUserLoggedIn && location.pathname === '/login') {
-    return <Redirect to="/" />;
+  if (isUserLoggedIn && location.pathname === LOGIN) {
+    return <Redirect to={HOME} />;
   }
 
-  if (!isUserLoggedIn && location.pathname !== '/login') {
-    return <Redirect to="/login" />;
+  if (!isUserLoggedIn && location.pathname !== LOGIN) {
+    return <Redirect to={LOGIN} />;
   }
 
   return (
     <Suspense fallback={<LinearProgress />}>
       <Switch>
-        <Route path="/login" component={Login} />
-        <Route path="/" component={MainPage} />
+        <Route path={LOGIN} component={Login} />
+        <Route path={HOME} component={MainPage} />
       </Switch>
     </Suspense>
   );

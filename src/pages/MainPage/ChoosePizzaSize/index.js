@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from 'contexts/Auth';
 import { Typography, Grid, Card } from '@material-ui/core';
 import pizzasSizes from 'fakes/pizzasSizes';
+import { CHOOSE_PIZZA_FLAVOURS } from 'routes';
 import {
   Title,
   PizzasGrid,
@@ -33,7 +34,7 @@ function ChoosePizzaSize() {
         {pizzasSizes.map((pizza) => (
           <Grid item key={pizza.id} xs>
             <Card>
-              <StyledCardActionArea component={Link} to={{ pathname: '/choose-pizza-flavours', state: pizza }}>
+              <StyledCardActionArea component={Link} to={{ pathname: CHOOSE_PIZZA_FLAVOURS, state: pizza }}>
                 <Pizza>
                   <PizzaText>{`${pizza.size}cm`}</PizzaText>
                 </Pizza>
