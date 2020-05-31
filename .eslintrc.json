@@ -32,6 +32,9 @@
     "rules": {
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "react/state-in-constructor": [0, "always"],
-        "react/jsx-fragments": [0, "element"]
+        "react/jsx-fragments": [0, "element"],
+        "react/jsx-props-no-spreading": [0, {
+          "exceptions": ["ContentHeader"]
+        }]
     }
 }

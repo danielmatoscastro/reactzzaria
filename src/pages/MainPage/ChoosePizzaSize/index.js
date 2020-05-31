@@ -4,8 +4,10 @@ import { AuthContext } from 'contexts/Auth';
 import { Typography, Grid, Card } from '@material-ui/core';
 import pizzasSizes from 'fakes/pizzasSizes';
 import { CHOOSE_PIZZA_FLAVOURS } from 'routes';
+import { ContentHeader, Title } from 'components';
+import { singularOrPlural } from 'helpers';
+
 import {
-  Title,
   PizzasGrid,
   StyledDivider,
   Pizza,
@@ -13,14 +15,13 @@ import {
   StyledCardActionArea,
 } from './style';
 
-const singularOrPlural = (amount, singular, plural) => (amount === 1 ? singular : plural);
 
 function ChoosePizzaSize() {
   const { userInfo: { user: { firstName } } } = useContext(AuthContext);
 
   return (
     <Fragment>
-      <Grid container direction="column" alignItems="center">
+      <ContentHeader>
         <Title variant="h4">
           {`O que vai ser hoje, ${firstName}?`}
         </Title>
@@ -28,13 +29,16 @@ function ChoosePizzaSize() {
         <Title variant="h5">
           Escolha o tamanho da pizza:
         </Title>
-      </Grid>
+      </ContentHeader>
 
       <PizzasGrid>
         {pizzasSizes.map((pizza) => (
           <Grid item key={pizza.id} xs>
             <Card>
-              <StyledCardActionArea component={Link} to={{ pathname: CHOOSE_PIZZA_FLAVOURS, state: pizza }}>
+              <StyledCardActionArea
+                component={Link}
+                to={{ pathname: CHOOSE_PIZZA_FLAVOURS, state: pizza }}
+              >
                 <Pizza>
                   <PizzaText>{`${pizza.size}cm`}</PizzaText>
                 </Pizza>

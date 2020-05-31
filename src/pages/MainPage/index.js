@@ -2,7 +2,7 @@ import React, { lazy, Fragment, Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { LinearProgress } from '@material-ui/core';
 import { HOME, CHOOSE_PIZZA_FLAVOURS } from 'routes';
-import Header from './components/Header';
+import { Header } from 'components';
 import { Main } from './style';
 
 const ChoosePizzaSize = lazy(() => import('./ChoosePizzaSize'));
