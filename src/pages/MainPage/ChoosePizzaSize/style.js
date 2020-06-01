@@ -4,18 +4,18 @@ import { Typography } from '@material-ui/core';
 export const Pizza = styled.div`
   height: 200px;
   width: 200px;
-  border: 1px solid #ccc;
+  border: 1px solid ${({ theme }) => theme.palette.grey.A100};
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.palette.common.white};
   z-index: 1;
 
   &::before, &::after {
     content: '';
-    background-color: #ccc;
+    background-color: ${({ theme }) => theme.palette.grey.A100};
     position: absolute;
     transform: rotate(45deg);
   }
@@ -42,5 +42,5 @@ export const PizzaText = styled(Typography).attrs({
   align-items: center;
   position: relative;
   z-index: 1;
-  background-color: white;
+  background-color: ${({ theme }) => theme.palette.common.white};
 `;

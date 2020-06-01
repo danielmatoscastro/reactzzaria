@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro';
 
 export const Main = styled.main`
-  padding: 100px 40px 80px;
+  padding: ${({ theme }) => theme.spacing(12, 5, 10)};
 `;
 
 export default Main;

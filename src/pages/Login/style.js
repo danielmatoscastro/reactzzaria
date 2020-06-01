@@ -2,7 +2,7 @@ import styled from 'styled-components/macro';
 import { Button } from '@material-ui/core';
 
 export const Container = styled.div`
-  padding: 40px;
+  padding: ${({ theme }) => theme.spacing(3)}px;
 `;
 
 export const GitHubButton = styled(Button).attrs({
@@ -10,7 +10,7 @@ export const GitHubButton = styled(Button).attrs({
   fullWidth: true,
 })`
   text-transform: none;
-  font-size: 22px;
-  padding: 15px;
+  font-size: ${({ theme }) => theme.typography.h5.fontSize};
+  padding: ${({ theme }) => theme.spacing(2)}px;
   max-width: 480px;
 `;

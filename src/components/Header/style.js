@@ -5,7 +5,7 @@ import MainLogo from 'components/MainLogo';
 export const StyledToolbar = styled(Toolbar)`
   margin: 0 auto;
   width: 100%;
-  max-width: 960px;
+  max-width: ${({ theme }) => theme.breakpoints.values.lg}px;
 `;
 
 export const LogoContainer = styled.div`
@@ -16,10 +16,10 @@ export const StyledMainLogo = styled(MainLogo)`
   width: 200px;
 
   & path {
-    fill: white;
+    fill: ${({ theme }) => theme.palette.common.white};
   }
 
   & line {
-    stroke: white;
+    stroke: ${({ theme }) => theme.palette.common.white};
   }
 `;

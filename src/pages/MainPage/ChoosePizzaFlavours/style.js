@@ -7,7 +7,7 @@ export const Img = styled.img`
 
 export const Card = styled(MaterialCard)`
   border: 2px solid transparent;
-  border-color: ${({ checked }) => (checked ? 'black' : '')};
+  border-color: ${({ checked, theme }) => (checked ? theme.palette.primary.main : '')};
 `;
 
 export const Checkbox = styled.input.attrs({
