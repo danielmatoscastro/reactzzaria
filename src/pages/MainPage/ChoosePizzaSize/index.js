@@ -1,9 +1,10 @@
-import React, { Fragment, useContext } from 'react';
+import React, { useContext } from 'react';
 import { AuthContext } from 'contexts/Auth';
 import { Typography, Grid, Card } from '@material-ui/core';
 import pizzasSizes from 'fakes/pizzasSizes';
 import { CHOOSE_PIZZA_FLAVOURS } from 'routes';
 import {
+  Content,
   ContentHeader,
   Title,
   PizzasGrid,
@@ -18,7 +19,7 @@ function ChoosePizzaSize() {
   const { userInfo: { user: { firstName } } } = useContext(AuthContext);
 
   return (
-    <Fragment>
+    <Content>
       <ContentHeader>
         <Title variant="h4">
           {`O que vai ser hoje, ${firstName}?`}
@@ -49,7 +50,7 @@ function ChoosePizzaSize() {
           </Grid>
         ))}
       </PizzasGrid>
-    </Fragment>
+    </Content>
   );
 }
 export default ChoosePizzaSize;

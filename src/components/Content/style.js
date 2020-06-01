@@ -1,7 +1,8 @@
 import styled from 'styled-components/macro';
 
-export const Main = styled.main`
+const Content = styled.main`
   padding: ${({ theme }) => theme.spacing(12, 5, 10)};
+  flex-grow: 1;
 `;
 
-export default Main;
+export default Content;
