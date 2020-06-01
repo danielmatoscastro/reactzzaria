@@ -8,8 +8,13 @@ import {
 } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
 import { useAuth } from 'hooks';
-import { StyledToolbar, LogoContainer, StyledMainLogo } from './style';
-
+import { HOME } from 'routes';
+import {
+  StyledToolbar,
+  LogoContainer,
+  StyledMainLogo,
+  LinkLogo,
+} from './style';
 
 function Header() {
   const [anchorElement, setAnchorElement] = useState(null);
@@ -22,7 +27,9 @@ function Header() {
     <AppBar>
       <StyledToolbar>
         <LogoContainer>
-          <StyledMainLogo />
+          <LinkLogo to={HOME}>
+            <StyledMainLogo />
+          </LinkLogo>
         </LogoContainer>
 
         <Typography color="inherit">

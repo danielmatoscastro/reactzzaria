@@ -1,5 +1,6 @@
 import styled from 'styled-components/macro';
 import { Toolbar } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import MainLogo from 'components/MainLogo';
 
 export const StyledToolbar = styled(Toolbar)`
@@ -22,4 +23,8 @@ export const StyledMainLogo = styled(MainLogo)`
   & line {
     stroke: ${({ theme }) => theme.palette.common.white};
   }
+`;
+
+export const LinkLogo = styled(Link)`
+  display: inline-block;
 `;
