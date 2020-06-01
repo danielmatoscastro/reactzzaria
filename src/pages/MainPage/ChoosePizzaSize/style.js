@@ -1,31 +1,5 @@
 import styled from 'styled-components/macro';
-import {
-  Grid,
-  Divider,
-  Typography,
-  CardActionArea,
-} from '@material-ui/core';
-
-
-export const PizzasGrid = styled(Grid).attrs({
-  container: true,
-  spacing: 2,
-})`
-  padding: 40px 40px 0;
-`;
-
-export const StyledDivider = styled(Divider)`
-  margin: 20px 0;
-  width: 100%;
-`;
-
-export const StyledCardActionArea = styled(CardActionArea)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px 0;
-  min-width: 250px;
-`;
+import { Typography } from '@material-ui/core';
 
 export const Pizza = styled.div`
   height: 200px;

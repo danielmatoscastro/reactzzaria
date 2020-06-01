@@ -1,19 +1,17 @@
 import React, { Fragment, useContext } from 'react';
-import { Link } from 'react-router-dom';
 import { AuthContext } from 'contexts/Auth';
 import { Typography, Grid, Card } from '@material-ui/core';
 import pizzasSizes from 'fakes/pizzasSizes';
 import { CHOOSE_PIZZA_FLAVOURS } from 'routes';
-import { ContentHeader, Title } from 'components';
-import { singularOrPlural } from 'helpers';
-
 import {
+  ContentHeader,
+  Title,
   PizzasGrid,
-  StyledDivider,
-  Pizza,
-  PizzaText,
-  StyledCardActionArea,
-} from './style';
+  Divider,
+  CardLink,
+} from 'components';
+import { singularOrPlural } from 'helpers';
+import { Pizza, PizzaText } from './style';
 
 
 function ChoosePizzaSize() {
@@ -35,21 +33,18 @@ function ChoosePizzaSize() {
         {pizzasSizes.map((pizza) => (
           <Grid item key={pizza.id} xs>
             <Card>
-              <StyledCardActionArea
-                component={Link}
-                to={{ pathname: CHOOSE_PIZZA_FLAVOURS, state: pizza }}
-              >
+              <CardLink to={{ pathname: CHOOSE_PIZZA_FLAVOURS, state: pizza }}>
                 <Pizza>
                   <PizzaText>{`${pizza.size}cm`}</PizzaText>
                 </Pizza>
 
-                <StyledDivider />
+                <Divider />
 
                 <Typography variant="h5">{pizza.name}</Typography>
                 <Typography>
                   {`${pizza.slices} fatias, ${pizza.flavours} ${singularOrPlural(pizza.flavours, 'sabor', 'sabores')}`}
                 </Typography>
-              </StyledCardActionArea>
+              </CardLink>
             </Card>
           </Grid>
         ))}
