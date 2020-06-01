@@ -10,7 +10,7 @@ import {
   Divider,
   CardLink,
 } from 'components';
-import { singularOrPlural } from 'helpers';
+import { singularOrPlural, toMoney } from 'helpers';
 import pizzasFlavours from 'fakes/pizzasFlavours';
 import { Card, Img, Checkbox } from './style';
 
@@ -63,7 +63,7 @@ function ChoosePizzaFlavours({ location }) {
 
                 <Typography>{pizza.name}</Typography>
                 <Typography variant="h5">
-                  {pizza.value[id]}
+                  {toMoney(pizza.value[id])}
                 </Typography>
               </Label>
             </Card>

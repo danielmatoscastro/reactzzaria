@@ -1,2 +1,2 @@
-/* eslint-disable import/prefer-default-export */
 export { default as singularOrPlural } from './singularOrPlural';
+export { default as toMoney } from './toMoney';
