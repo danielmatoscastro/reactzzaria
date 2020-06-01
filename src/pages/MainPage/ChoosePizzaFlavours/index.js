@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useContext } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Typography, Container } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
@@ -13,7 +13,7 @@ import {
 } from 'components';
 import { singularOrPlural, toMoney } from 'helpers';
 import pizzasFlavours from 'fakes/pizzasFlavours';
-import { AuthContext } from 'contexts/Auth';
+import { useAuth } from 'hooks';
 import {
   Card,
   Img,
@@ -30,7 +30,7 @@ Label.propTypes = {
 
 function ChoosePizzaFlavours({ location }) {
   const [checkboxes, setCheckboxes] = useState({});
-  const { userInfo: { user: { firstName } } } = useContext(AuthContext);
+  const { userInfo: { user: { firstName } } } = useAuth();
   const {
     state: {
       id, flavours, name, slices,

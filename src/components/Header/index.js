@@ -1,19 +1,19 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import {
-  AppBar, Typography, IconButton, Menu, MenuItem,
+  AppBar,
+  Typography,
+  IconButton,
+  Menu,
+  MenuItem,
 } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
-import { AuthContext } from 'contexts/Auth';
-import {
-  StyledToolbar,
-  LogoContainer,
-  StyledMainLogo,
-} from './style';
+import { useAuth } from 'hooks';
+import { StyledToolbar, LogoContainer, StyledMainLogo } from './style';
 
 
 function Header() {
   const [anchorElement, setAnchorElement] = useState(null);
-  const { userInfo: { user: { firstName } }, logout } = useContext(AuthContext);
+  const { userInfo: { user: { firstName } }, logout } = useAuth();
 
   const handleOpenMenu = (e) => setAnchorElement(e.target);
   const handleClose = () => setAnchorElement(null);

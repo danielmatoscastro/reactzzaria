@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Grid } from '@material-ui/core';
-import { AuthContext } from 'contexts/Auth';
+import { useAuth } from 'hooks';
 import { MainLogo } from 'components';
 import { Container, GitHubButton } from './style';
 
 function Login() {
-  const { login } = useContext(AuthContext);
+  const { login } = useAuth();
 
   return (
     <Container>

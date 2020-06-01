@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import { AuthContext } from 'contexts/Auth';
+import React from 'react';
 import { Typography, Grid, Card } from '@material-ui/core';
 import pizzasSizes from 'fakes/pizzasSizes';
 import { CHOOSE_PIZZA_FLAVOURS } from 'routes';
@@ -12,11 +11,11 @@ import {
   CardLink,
 } from 'components';
 import { singularOrPlural } from 'helpers';
+import { useAuth } from 'hooks';
 import { Pizza, PizzaText } from './style';
 
-
 function ChoosePizzaSize() {
-  const { userInfo: { user: { firstName } } } = useContext(AuthContext);
+  const { userInfo: { user: { firstName } } } = useAuth();
 
   return (
     <Content>
