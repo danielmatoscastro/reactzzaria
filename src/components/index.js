@@ -6,3 +6,4 @@ export { default as PizzasGrid } from './PizzasGrid';
 export { default as Divider } from './Divider';
 export { default as CardLink } from './CardLink';
 export { default as Content } from './Content';
+export { default as Footer } from './Footer';

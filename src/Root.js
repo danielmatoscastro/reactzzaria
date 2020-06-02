@@ -4,7 +4,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { CssBaseline, createMuiTheme, MuiThemeProvider } from '@material-ui/core';
 import { ThemeProvider, createGlobalStyle } from 'styled-components/macro';
 import App from 'App';
-import AuthProvider from 'contexts/Auth';
+import { AuthProvider, OrderProvider } from 'contexts';
 
 const theme = createMuiTheme({
   typography: {
@@ -25,12 +25,14 @@ function Root() {
     <MuiThemeProvider theme={theme}>
       <ThemeProvider theme={theme}>
         <AuthProvider>
-          <CssBaseline />
-          <GlobalStyle />
+          <OrderProvider>
+            <CssBaseline />
+            <GlobalStyle />
 
-          <BrowserRouter>
-            <Route component={App} />
-          </BrowserRouter>
+            <BrowserRouter>
+              <Route component={App} />
+            </BrowserRouter>
+          </OrderProvider>
         </AuthProvider>
       </ThemeProvider>
     </MuiThemeProvider>

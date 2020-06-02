@@ -1,3 +1,2 @@
 export { default as useAuth } from './auth';
-
-export { default } from './auth';
+export { default as useOrder } from './order';
