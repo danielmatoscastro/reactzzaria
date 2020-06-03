@@ -7,3 +7,5 @@ export { default as Divider } from './Divider';
 export { default as CardLink } from './CardLink';
 export { default as Content } from './Content';
 export { default as Footer } from './Footer';
+export { default as OrderInfo } from './OrderInfo';
+export { default as CheckoutFooter } from './CheckoutFooter';

@@ -13,8 +13,3 @@ export const Paper = styled(MaterialPaper)`
   padding: ${({ theme }) => theme.spacing(2)}px;
   flex-grow: 1;
 `;
-
-export const ContentFooter = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`;

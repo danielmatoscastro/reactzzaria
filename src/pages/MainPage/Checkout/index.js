@@ -1,17 +1,10 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Button,
-  Grid,
-  TextField as MaterialTextField,
-  List,
-  ListItem,
-  Typography,
-} from '@material-ui/core';
-import { Content, Footer } from 'components';
-import { useOrder } from 'hooks';
-import { singularOrPlural } from 'helpers';
-import { Paper, Title, ContentFooter } from './style';
+import { Link } from 'react-router-dom';
+import { Button, Grid, TextField as MaterialTextField } from '@material-ui/core';
+import { Content, OrderInfo, CheckoutFooter } from 'components';
+import { CHECKOUT_CONFIRMATION } from 'routes';
+import { Paper, Title } from './style';
 
 function TextField({ xs, autoFocus, ...props }) {
   return (
@@ -39,8 +32,6 @@ TextField.propTypes = {
 };
 
 function Checkout() {
-  const { order } = useOrder();
-
   return (
     <Fragment>
       <Content>
@@ -67,45 +58,22 @@ function Checkout() {
           <Grid container item xs={12} md={6} direction="column">
             <Title>Informações do seu pedido:</Title>
             <Paper>
-              <List>
-                {order.pizzas.map((pizza, index) => {
-                  const { pizzaFlavours, pizzaSize, quantity } = pizza;
-                  const { name, slices, flavours } = pizzaSize;
-
-                  return (
-                  // eslint-disable-next-line react/no-array-index-key
-                    <ListItem key={index}>
-                      <Typography>
-                        <b>{quantity}</b>
-                        {' '}
-                        {singularOrPlural(quantity, 'Pizza', 'Pizzas')}
-                        {' '}
-                        <b>{name.toUpperCase()}</b>
-                        {' '}
-                        {`- (${slices} ${singularOrPlural(slices, 'fatia', 'fatias')},`}
-                        {' '}
-                        {`${flavours} ${singularOrPlural(flavours, 'sabor', 'sabores')})`}
-                        <br />
-                        {singularOrPlural(pizzaFlavours.length, 'no sabor', 'nos sabores')}
-                        {' '}
-                        <b>{pizzaFlavours.map((flavour) => flavour.name).join(', ')}</b>
-                      </Typography>
-                    </ListItem>
-                  );
-                })}
-              </List>
+              <OrderInfo />
             </Paper>
           </Grid>
         </Grid>
       </Content>
 
-      <Footer>
-        <ContentFooter>
-          <Button variant="contained" color="primary">
-            Confirmar dados
-          </Button>
-        </ContentFooter>
-      </Footer>
+      <CheckoutFooter>
+        <Button
+          variant="contained"
+          color="primary"
+          component={Link}
+          to={CHECKOUT_CONFIRMATION}
+        >
+          Confirmar dados
+        </Button>
+      </CheckoutFooter>
     </Fragment>
   );
 }
