@@ -7,12 +7,13 @@ import {
   OrderInfo,
   CheckoutFooter,
 } from 'components';
-import { useAuth } from 'hooks';
+import { useAuth, useOrder } from 'hooks';
 import { CHECKOUT_SUCCESS } from 'routes';
 import { Header, Paper, Divider } from './style';
 
 function CheckoutConfirmation() {
   const { userInfo: { user: { firstName } } } = useAuth();
+  const { sendOrder } = useOrder();
 
   return (
     <Fragment>
@@ -51,6 +52,7 @@ function CheckoutConfirmation() {
           size="large"
           component={Link}
           to={CHECKOUT_SUCCESS}
+          onClick={sendOrder}
         >
           Tudo certo!
         </Button>

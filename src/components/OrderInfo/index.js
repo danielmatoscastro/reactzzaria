@@ -1,20 +1,27 @@
 import React from 'react';
-import { List, ListItem, Typography } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import { IconButton, List, Typography } from '@material-ui/core';
+import { Close } from '@material-ui/icons';
 import { singularOrPlural } from 'helpers';
 import { useOrder } from 'hooks';
+import { ListItem } from './style';
 
-function OrderInfo() {
-  const { order } = useOrder();
+function OrderInfo({ showOptions }) {
+  const { order, removePizzaFromOrder } = useOrder();
 
   return (
     <List>
-      {order.pizzas.map((pizza, index) => {
-        const { pizzaFlavours, pizzaSize, quantity } = pizza;
+      {order.pizzas.map((pizza) => {
+        const {
+          id,
+          pizzaFlavours,
+          pizzaSize,
+          quantity,
+        } = pizza;
         const { name, slices, flavours } = pizzaSize;
 
         return (
-        // eslint-disable-next-line react/no-array-index-key
-          <ListItem key={index}>
+          <ListItem key={id}>
             <Typography>
               <b>{quantity}</b>
               {' '}
@@ -30,11 +37,29 @@ function OrderInfo() {
               {' '}
               <b>{pizzaFlavours.map((flavour) => flavour.name).join(', ')}</b>
             </Typography>
+
+            {showOptions && (
+            <IconButton
+              title="Remover"
+              color="secondary"
+              onClick={() => removePizzaFromOrder(id)}
+            >
+              <Close />
+            </IconButton>
+            )}
           </ListItem>
         );
       })}
     </List>
   );
 }
+
+OrderInfo.defaultProps = {
+  showOptions: false,
+};
+
+OrderInfo.propTypes = {
+  showOptions: PropTypes.bool,
+};
 
 export default OrderInfo;

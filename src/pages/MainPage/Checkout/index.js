@@ -58,7 +58,7 @@ function Checkout() {
           <Grid container item xs={12} md={6} direction="column">
             <Title>Informações do seu pedido:</Title>
             <Paper>
-              <OrderInfo />
+              <OrderInfo showOptions />
             </Paper>
           </Grid>
         </Grid>
