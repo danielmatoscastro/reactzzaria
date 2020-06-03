@@ -1,53 +1,21 @@
-import React, { useState } from 'react';
-import {
-  AppBar,
-  Typography,
-  IconButton,
-  Menu,
-  MenuItem,
-} from '@material-ui/core';
-import { AccountCircle } from '@material-ui/icons';
-import { useAuth } from 'hooks';
-import { HOME } from 'routes';
-import {
-  StyledToolbar,
-  LogoContainer,
-  StyledMainLogo,
-  LinkLogo,
-} from './style';
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { AppBar } from '@material-ui/core';
+import CommonHeader from 'components/CommonHeader';
+import CheckoutHeader from 'components/CheckoutHeader';
+import { CHECKOUT } from 'routes';
+import { Toolbar } from './style';
 
 function Header() {
-  const [anchorElement, setAnchorElement] = useState(null);
-  const { userInfo: { user: { firstName } }, logout } = useAuth();
-
-  const handleOpenMenu = (e) => setAnchorElement(e.target);
-  const handleClose = () => setAnchorElement(null);
-
   return (
     <AppBar>
-      <StyledToolbar>
-        <LogoContainer>
-          <LinkLogo to={HOME}>
-            <StyledMainLogo />
-          </LinkLogo>
-        </LogoContainer>
-
-        <Typography color="inherit">
-          {`Olá ${firstName} =)`}
-        </Typography>
-        <IconButton color="inherit" onClick={handleOpenMenu}>
-          <AccountCircle />
-        </IconButton>
-        <Menu
-          open={!!anchorElement}
-          onClose={handleClose}
-          anchorEl={anchorElement}
-        >
-          <MenuItem onClick={logout}>Sair</MenuItem>
-        </Menu>
-      </StyledToolbar>
+      <Toolbar>
+        <Switch>
+          <Route path={CHECKOUT} component={CheckoutHeader} />
+          <Route component={CommonHeader} />
+        </Switch>
+      </Toolbar>
     </AppBar>
-
   );
 }
 

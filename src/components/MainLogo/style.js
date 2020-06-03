@@ -1,8 +1,16 @@
 import styled from 'styled-components/macro';
 import { ReactComponent as Logo } from './logoReactzzaria.svg';
 
-const MainLogo = styled(Logo)`
-  width: 100%;
+export const MainLogo = styled(Logo)`
+  width: 200px;
+
+  & path {
+    fill: ${({ theme }) => theme.palette.common.white};
+  }
+
+  & line {
+    stroke: ${({ theme }) => theme.palette.common.white};
+  }
 `;
 
 export default MainLogo;
