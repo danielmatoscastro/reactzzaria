@@ -7,12 +7,13 @@ import {
   OrderInfo,
   CheckoutFooter,
 } from 'components';
-import { useAuth } from 'hooks';
+import { useAuth, useOrder } from 'hooks';
 import { HOME } from 'routes';
 import { Header, Paper, Divider } from './style';
 
 function CheckoutSuccess() {
   const { userInfo: { user: { firstName } } } = useAuth();
+  const { order } = useOrder();
 
   return (
     <Fragment>
@@ -39,13 +40,31 @@ function CheckoutSuccess() {
 
             <Typography variant="h6">Endereço para entrega:</Typography>
             <Typography>
-              Rua Oi, número 10, Compl., Bairro, CEP: 10100-10 - Cidade/UF
+              {order.address.address}
+              {' n'}
+              {' '}
+              {order.address.number}
+              {' '}
+              {' '}
+              {order.address.complement}
+              <br />
+              Bairro:
+              {' '}
+              {order.address.district}
+              <br />
+              CEP:
+              {' '}
+              {order.address.code}
+              <br />
+              {order.address.city}
+              /
+              {order.address.state}
             </Typography>
 
             <Divider />
 
             <Typography variant="h6">Telefone para contato:</Typography>
-            <Typography>(12) 12345-1234</Typography>
+            <Typography>{order.phone}</Typography>
           </Paper>
         </Container>
       </Content>

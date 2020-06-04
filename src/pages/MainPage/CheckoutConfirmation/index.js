@@ -13,7 +13,7 @@ import { Header, Paper, Divider } from './style';
 
 function CheckoutConfirmation() {
   const { userInfo: { user: { firstName } } } = useAuth();
-  const { sendOrder } = useOrder();
+  const { order, sendOrder } = useOrder();
 
   return (
     <Fragment>
@@ -34,13 +34,31 @@ function CheckoutConfirmation() {
 
             <Typography variant="h6">Endereço para entrega:</Typography>
             <Typography>
-              Rua Oi, número 10, Compl., Bairro, CEP: 10100-10 - Cidade/UF
+              {order.address.address}
+              {' n'}
+              {' '}
+              {order.address.number}
+              {' '}
+              {' '}
+              {order.address.complement}
+              <br />
+              Bairro:
+              {' '}
+              {order.address.district}
+              <br />
+              CEP:
+              {' '}
+              {order.address.code}
+              <br />
+              {order.address.city}
+              /
+              {order.address.state}
             </Typography>
 
             <Divider />
 
             <Typography variant="h6">Telefone para contato:</Typography>
-            <Typography>(12) 12345-1234</Typography>
+            <Typography>{order.phone}</Typography>
           </Paper>
         </Container>
       </Content>
