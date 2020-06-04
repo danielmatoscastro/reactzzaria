@@ -7,6 +7,8 @@ const OrderContext = createContext();
 function OrderProvider({ children }) {
   const [pizzas, setPizzas] = useState([]);
   const [orderInProgress, setOrderInProgress] = useState(false);
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState({});
 
   function newPizza(pizza) {
     return { ...pizza, id: v4() };
@@ -34,8 +36,12 @@ function OrderProvider({ children }) {
       addPizzaToOrder,
       sendOrder,
       removePizzaFromOrder,
+      addAddress: setAddress,
+      addPhone: setPhone,
       order: {
         pizzas,
+        address,
+        phone,
       },
     }}
     >

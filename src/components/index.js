@@ -9,3 +9,6 @@ export { default as Content } from './Content';
 export { default as Footer } from './Footer';
 export { default as OrderInfo } from './OrderInfo';
 export { default as CheckoutFooter } from './CheckoutFooter';
+export { default as FormAddress } from './FormAddress';
+export { default as TextField } from './TextField';
+export { default as PhoneField } from './PhoneField';

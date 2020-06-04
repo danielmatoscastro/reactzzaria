@@ -1,37 +1,24 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { Button, Grid, TextField as MaterialTextField } from '@material-ui/core';
-import { Content, OrderInfo, CheckoutFooter } from 'components';
-import { CHECKOUT_CONFIRMATION } from 'routes';
+import { Redirect, Link } from 'react-router-dom';
+import { Button, Grid } from '@material-ui/core';
+import {
+  Content,
+  OrderInfo,
+  CheckoutFooter,
+  FormAddress,
+  PhoneField,
+} from 'components';
+import { HOME, CHECKOUT_CONFIRMATION } from 'routes';
+import { useOrder } from 'hooks';
 import { Paper, Title } from './style';
 
-function TextField({ xs, autoFocus, ...props }) {
-  return (
-    <Grid item xs={xs}>
-      <MaterialTextField
-        fullWidth
-        variant="outlined"
-        inputProps={{
-          autoFocus,
-        }}
-        {...props}
-      />
-    </Grid>
-  );
-}
-
-TextField.defaultProps = {
-  xs: 12,
-  autoFocus: false,
-};
-
-TextField.propTypes = {
-  xs: PropTypes.number,
-  autoFocus: PropTypes.bool,
-};
-
 function Checkout() {
+  const { order, addAddress, addPhone } = useOrder();
+
+  if (!order.pizzas.length) {
+    return <Redirect to={HOME} />;
+  }
+
   return (
     <Fragment>
       <Content>
@@ -39,20 +26,12 @@ function Checkout() {
           <Grid item xs={12} md={6}>
             <Title>Qual o endereço para entrega?</Title>
             <Paper>
-              <Grid container spacing={2}>
-                <TextField label="CEP" xs={4} autoFocus />
-                <Grid item xs={8} />
-                <TextField label="Rua" xs={9} />
-                <TextField label="Número" xs={3} />
-                <TextField label="Complemento" xs={12} />
-                <TextField label="Cidade" xs={9} />
-                <TextField label="Estado" xs={3} />
-              </Grid>
+              <FormAddress onUpdate={addAddress} />
             </Paper>
 
             <Title>Qual o seu telefone?</Title>
             <Paper>
-              <TextField label="Telefone" xs={4} />
+              <PhoneField onUpdate={addPhone} />
             </Paper>
           </Grid>
           <Grid container item xs={12} md={6} direction="column">
@@ -71,7 +50,7 @@ function Checkout() {
           component={Link}
           to={CHECKOUT_CONFIRMATION}
         >
-          Confirmar dados
+          Confirmar pedido
         </Button>
       </CheckoutFooter>
     </Fragment>
