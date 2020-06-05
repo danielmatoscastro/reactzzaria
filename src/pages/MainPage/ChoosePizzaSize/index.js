@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typography, Grid, Card } from '@material-ui/core';
-import pizzasSizes from 'fakes/pizzasSizes';
 import { CHOOSE_PIZZA_FLAVOURS } from 'routes';
 import {
   Content,
@@ -12,10 +11,24 @@ import {
 } from 'components';
 import { singularOrPlural } from 'helpers';
 import { useAuth } from 'hooks';
+import { db } from 'services/firebase';
 import { Pizza, PizzaText } from './style';
 
 function ChoosePizzaSize() {
+  const [pizzasSizes, setPizzasSizes] = useState([]);
   const { userInfo: { user: { firstName } } } = useAuth();
+
+  useEffect(() => {
+    const sizes = [];
+    db.collection('pizzasSizes').get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => sizes.push({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      setPizzasSizes(sizes);
+    });
+  }, []);
 
   return (
     <Content>
