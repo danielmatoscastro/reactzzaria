@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Typography } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
@@ -13,7 +13,7 @@ import {
   Footer,
 } from 'components';
 import { singularOrPlural, toMoney } from 'helpers';
-import { db } from 'services/firebase';
+import { useCollection } from 'hooks';
 import { Card, Img, Checkbox } from './style';
 
 const Label = ({ children }) => <CardLink component="label">{children}</CardLink>;
@@ -36,30 +36,18 @@ function checkboxesCheckeds(checkboxes) {
 
 function ChoosePizzaFlavours({ location }) {
   const [checkboxes, setCheckboxes] = useState({});
-  const [pizzasFlavours, setPizzasFlavours] = useState([]);
-
-  useEffect(() => {
-    let mounted = true;
-
-    db.collection('pizzasFlavours').get().then((querySnapshot) => {
-      const flavours = [];
-      querySnapshot.forEach((doc) => flavours.push({
-        id: doc.id,
-        ...doc.data(),
-      }));
-
-      if (mounted) {
-        setPizzasFlavours(flavours);
-      }
-    });
-
-    return () => {
-      mounted = false;
-    };
-  }, []);
+  const pizzasFlavours = useCollection('pizzasFlavours');
 
   if (!location.state) {
     return <Redirect to={HOME} />;
+  }
+
+  if (!pizzasFlavours) {
+    return 'Loading...';
+  }
+
+  if (pizzasFlavours.length === 0) {
+    return 'Não há dados.';
   }
 
   const { state: { pizzaSize: { id, flavours } } } = location;
