@@ -1,6 +1,8 @@
 import React, { createContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { v4 } from 'uuid';
+import firebase, { db } from 'services/firebase';
+import { useAuth } from 'hooks';
 
 const OrderContext = createContext();
 
@@ -9,6 +11,7 @@ function OrderProvider({ children }) {
   const [orderInProgress, setOrderInProgress] = useState(false);
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState({});
+  const { userInfo } = useAuth();
 
   function newPizza(pizza) {
     return { ...pizza, id: v4() };
@@ -23,7 +26,19 @@ function OrderProvider({ children }) {
     }
   }
 
-  function sendOrder() {
+  async function sendOrder() {
+    await db.collection('orders').add({
+      userId: userInfo.user.uid,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      address,
+      phone,
+      pizzas: pizzas.map((pizza) => ({
+        size: pizza.pizzaSize,
+        flavours: pizza.pizzaFlavours,
+        quantity: pizza.quantity,
+      })),
+    });
+
     setOrderInProgress(false);
   }
 
