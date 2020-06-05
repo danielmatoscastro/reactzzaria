@@ -19,15 +19,23 @@ function ChoosePizzaSize() {
   const { userInfo: { user: { firstName } } } = useAuth();
 
   useEffect(() => {
-    const sizes = [];
+    let mounted = true;
+
     db.collection('pizzasSizes').get().then((querySnapshot) => {
+      const sizes = [];
       querySnapshot.forEach((doc) => sizes.push({
         id: doc.id,
         ...doc.data(),
       }));
 
-      setPizzasSizes(sizes);
+      if (mounted) {
+        setPizzasSizes(sizes);
+      }
     });
+
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   return (

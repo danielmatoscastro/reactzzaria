@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Typography } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
@@ -13,7 +13,7 @@ import {
   Footer,
 } from 'components';
 import { singularOrPlural, toMoney } from 'helpers';
-import pizzasFlavours from 'fakes/pizzasFlavours';
+import { db } from 'services/firebase';
 import { Card, Img, Checkbox } from './style';
 
 const Label = ({ children }) => <CardLink component="label">{children}</CardLink>;
@@ -21,7 +21,7 @@ Label.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-function getFlavoursNamesAndIds(checkboxes) {
+function getFlavoursNamesAndIds({ checkboxes, pizzasFlavours }) {
   return Object.entries(checkboxes)
     .filter(([, value]) => !!value)
     .map(([id]) => ({
@@ -36,6 +36,27 @@ function checkboxesCheckeds(checkboxes) {
 
 function ChoosePizzaFlavours({ location }) {
   const [checkboxes, setCheckboxes] = useState({});
+  const [pizzasFlavours, setPizzasFlavours] = useState([]);
+
+  useEffect(() => {
+    let mounted = true;
+
+    db.collection('pizzasFlavours').get().then((querySnapshot) => {
+      const flavours = [];
+      querySnapshot.forEach((doc) => flavours.push({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      if (mounted) {
+        setPizzasFlavours(flavours);
+      }
+    });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   if (!location.state) {
     return <Redirect to={HOME} />;
@@ -98,7 +119,7 @@ function ChoosePizzaFlavours({ location }) {
             pathname: CHOOSE_PIZZA_QUANTITY,
             state: {
               ...location.state,
-              pizzaFlavours: getFlavoursNamesAndIds(checkboxes),
+              pizzaFlavours: getFlavoursNamesAndIds({ checkboxes, pizzasFlavours }),
             },
           },
           children: 'Quantas pizzas?',
